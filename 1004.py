@@ -4,7 +4,6 @@ T = int(sys.stdin.readline())
 for i in range(T):
     x1, y1, x2, y2 = map(int, sys.stdin.readline().split())
     n = int(sys.stdin.readline())
-
     for j in range(n):
         count = 0
         cx, cy, r = map(int, sys.stdin.readline().split())
