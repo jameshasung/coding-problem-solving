@@ -1,5 +1,6 @@
 # 예제 4-1 상하좌우
 # 제한시간 15분
+# 풀이시간 약 3분
 import sys
 
 n = int(sys.stdin.readline())
