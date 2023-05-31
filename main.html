@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>현재 온도</title>
+  </head>
+  <body>
+    <form>
+      <label for="location">지역을 입력하세요(ex: seoul):</label>
+      <input type="text" id="location" name="location" required />
+      <button type="submit">온도 확인</button>
+    </form>
+
+    <h1><span id="location-name"></span>의 현재 날씨</h1>
+    <p><img id="weather-icon" alt="weather icon" /></p>
+    <p id="temperature"></p>
+
+    <script>
+      const apiKey = "1bd0c3f521e9e83ff49c4f33268824e0";
+      const form = document.querySelector("form");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const location = document.getElementById("location").value.trim();
+
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
+
+        document.getElementById("location-name").textContent = location;
+
+        fetch(apiUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            const temperature = data.main.temp;
+            const iconUrl = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
+            document.getElementById("weather-icon").src = iconUrl;
+            document.getElementById(
+              "temperature",
+            ).textContent = `${location}의 현재 온도는 ${temperature}℃ 입니다.`;
+          })
+          .catch((error) => {
+            document.getElementById(
+              "temperature",
+            ).textContent = `${location}의 날씨 정보를 가져올 수 없습니다. 철자를 확인하고 다시 시도하세요.`;
+          });
+      });
+    </script>
+  </body>
+</html>
